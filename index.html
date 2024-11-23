@@ -1,20 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Internet Speed Test</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  </head>
+  <body>
     <div class="container">
-        <h2>CHECK YOUR INTERNET SPEED</h2>
-        <div class="circle">
-            <button id="checkBtn">CHECK</button>
-        </div>
-        <p id="speedResult">0 Mbps</p> <!-- Pindah ke luar lingkaran -->
+      <h2 id="title">CHECK YOUR INTERNET SPEED</h2>
+      <div class="circle">
+        <button id="checkBtn">CHECK</button>
+      </div>
+      <p id="speedResult">0 Mbps</p>
+
+      <div id="language-section">
+        <label for="languageSelect">Language:</label>
+        <select id="languageSelect">
+          <option value="en">English</option>
+          <option value="id">Bahasa Indonesia</option>
+        </select>
+      </div>
+
+      <div id="history-section">
+        <h3>Test History</h3>
+        <ul id="historyList"></ul>
+        <button id="clearHistoryBtn">Clear History</button>
+        <button id="downloadReportBtn">Download Report</button>
+      </div>
+
+      <div id="chart-section">
+        <h3>Speed Analysis</h3>
+        <canvas id="speedChart"></canvas>
+      </div>
+
+      <div id="tips-section">
+        <h3>Tips to Improve Internet Speed</h3>
+        <ul id="tipsList">
+          <li>Restart your modem/router.</li>
+          <li>Minimize the number of devices connected to the network.</li>
+          <li>Use an ethernet connection instead of Wi-Fi.</li>
+          <li>Upgrade your internet plan.</li>
+        </ul>
+      </div>
+
+      <div id="analysis-section">
+        <h3>Average Speed Analysis</h3>
+        <p id="averageSpeed">Average Speed: 0 Mbps</p>
+        <p id="globalSpeedComparison">
+          Your speed is compared to the global average speed.
+        </p>
+        <p id="slowSpeedAlert" style="color: red; display: none">
+          Your speed is too slow! Please try again.
+        </p>
+      </div>
     </div>
+
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
