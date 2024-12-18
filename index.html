@@ -12,10 +12,17 @@
   <body>
     <div class="container">
       <h2 id="title">CHECK YOUR INTERNET SPEED</h2>
+
+      <div class="toggle-theme">
+        <label for="themeSwitch">Dark/Light Mode:</label>
+        <input type="checkbox" id="themeSwitch" />
+      </div>
+
       <div class="circle">
         <button id="checkBtn">CHECK</button>
       </div>
       <p id="speedResult">0 Mbps</p>
+      <p id="latencyResult" style="display: none">Latency: 0 ms</p>
 
       <div id="language-section">
         <label for="languageSelect">Language:</label>
@@ -38,13 +45,19 @@
       </div>
 
       <div id="tips-section">
-        <h3>Tips to Improve Internet Speed</h3>
-        <ul id="tipsList">
-          <li>Restart your modem/router.</li>
-          <li>Minimize the number of devices connected to the network.</li>
-          <li>Use an ethernet connection instead of Wi-Fi.</li>
-          <li>Upgrade your internet plan.</li>
+        <h3>Recommended Internet Providers</h3>
+        <ul id="providerList">
+          <li>Provider A: High-speed, low latency</li>
+          <li>Provider B: Affordable for families</li>
+          <li>Provider C: Excellent for streaming</li>
         </ul>
+      </div>
+
+      <div id="stability-section">
+        <h3>Connection Stability Test</h3>
+        <button id="stabilityTestBtn">Test Stability</button>
+        <ul id="stabilityResults"></ul>
+        <p id="stabilitySummary"></p>
       </div>
 
       <div id="analysis-section">

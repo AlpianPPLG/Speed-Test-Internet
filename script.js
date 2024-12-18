@@ -249,3 +249,96 @@ document
         "Average Speed: 0 Mbps";
     }
   });
+
+// Fungsi untuk mengukur latensi
+function measureLatency() {
+  return new Promise((resolve) => {
+    const start = Date.now();
+    fetch("https://www.google.com/images/phd/px.gif", { mode: "no-cors" })
+      .then(() => {
+        const latency = Date.now() - start;
+        resolve(latency);
+      })
+      .catch(() => resolve(null));
+  });
+}
+
+// Fungsi untuk mengganti tema
+document.getElementById("themeSwitch").addEventListener("change", (event) => {
+  if (event.target.checked) {
+    document.body.classList.remove("light-mode");
+  } else {
+    document.body.classList.add("light-mode");
+  }
+});
+
+// Fungsi untuk menguji stabilitas koneksi
+function testConnectionStability() {
+  const testCount = 5; // Jumlah tes
+  const delays = []; // Array untuk menyimpan waktu delay
+  const stabilityResults = document.getElementById("stabilityResults");
+  stabilityResults.innerHTML = ""; // Reset hasil
+
+  let completedTests = 0;
+  const startTest = () => {
+    const startTime = new Date().getTime();
+    fetch("https://www.google.com/images/phd/px.gif?cache=" + Math.random())
+      .then(() => {
+        const endTime = new Date().getTime();
+        const delay = endTime - startTime;
+        delays.push(delay);
+
+        const listItem = document.createElement("li");
+        listItem.textContent = `Test ${completedTests + 1}: ${delay} ms`;
+        stabilityResults.appendChild(listItem);
+
+        completedTests++;
+        if (completedTests < testCount) {
+          startTest(); // Lanjutkan ke tes berikutnya
+        } else {
+          summarizeStability(delays);
+        }
+      })
+      .catch(() => {
+        const listItem = document.createElement("li");
+        listItem.textContent = `Test ${completedTests + 1}: Failed`;
+        listItem.style.color = "red";
+        stabilityResults.appendChild(listItem);
+
+        completedTests++;
+        if (completedTests < testCount) {
+          startTest(); // Lanjutkan ke tes berikutnya
+        } else {
+          summarizeStability(delays);
+        }
+      });
+  };
+
+  startTest();
+}
+
+// Fungsi untuk meringkas hasil stabilitas koneksi
+function summarizeStability(delays) {
+  const stabilitySummary = document.getElementById("stabilitySummary");
+  if (delays.length === 0) {
+    stabilitySummary.textContent = "Connection is unstable. All tests failed.";
+    stabilitySummary.style.color = "red";
+    return;
+  }
+
+  const averageDelay =
+    delays.reduce((sum, delay) => sum + delay, 0) / delays.length;
+  const maxDelay = Math.max(...delays);
+  const minDelay = Math.min(...delays);
+
+  stabilitySummary.textContent = `Stability Summary:
+    Average Delay: ${averageDelay.toFixed(2)} ms,
+    Min Delay: ${minDelay} ms,
+    Max Delay: ${maxDelay} ms.`;
+  stabilitySummary.style.color = averageDelay < 100 ? "green" : "orange";
+}
+
+// Event listener untuk tombol uji stabilitas
+document
+  .getElementById("stabilityTestBtn")
+  .addEventListener("click", testConnectionStability);
